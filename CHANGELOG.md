@@ -1,4 +1,6 @@
 # master
+
+# 0.2.0 (2017-04-16)
 - Verify Password command
 - Email Auth command
 - Domain Owner command
