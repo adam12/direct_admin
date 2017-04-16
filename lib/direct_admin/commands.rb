@@ -63,5 +63,21 @@ module DirectAdmin
         Integer(response["valid"]) == 1
       end
     end
+
+    # Authenticate email account
+    #
+    #   client.email_auth("user@domain.com", "secret")
+    def email_auth(email, password)
+      params = {
+        "email" => email,
+        "passwd" => password
+      }
+
+      response = request(:post, "/CMD_API_EMAIL_AUTH", params)
+
+      if response.has_key?("error")
+        Integer(response["error"]) == 0
+      end
+    end
   end
 end
