@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module DirectAdmin
   module Commands
     def create_login_key(name, value, options = {})
