@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 module DirectAdmin
   module Commands
+    # Create a login key
+    #
+    #   client.create_login_key("CLI Tool", "abcd1234")
+    #
+    # == Required Arguments
+    #
+    # :name :: The name of the login key
+    # :value :: The value of the login key
     def create_login_key(name, value, options = {})
       never_expires = options.fetch(:never_expires, false)
       expiration = options[:expiration]

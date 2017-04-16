@@ -6,19 +6,32 @@ module DirectAdmin
   class Client
     include DirectAdmin::Commands
 
-    attr_accessor :url, :username, :password
-
-    alias server_username username
-    alias server_password password
+    # URL of the DirectAdmin server
+    attr_accessor :url
     alias server_url url
 
+    # Username to authenticate with
+    attr_accessor :username
+    alias server_username username
+
+    # Password to authenticate with
+    attr_accessor :password
+    alias server_password password
+
+    # Create a new instance of the Client
+    #
+    # == Required Arguments
+    #
+    # :url :: The url of the DirectAdmin server.
+    # :username :: A username to login as.
+    # :password :: The password which correspondes to the username.
     def initialize(url:, username:, password:)
       @url = url
       @username = username
       @password = password
     end
 
-    def _request(method, endpoint, params)
+    def _request(method, endpoint, params) # :nodoc:
       Request.new(self, method, endpoint, params)
     end
   end
