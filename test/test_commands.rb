@@ -19,7 +19,6 @@ class TestCommands < Minitest::Test
   end
 
   def test_create_login_key
-
     request = @client.create_login_key("test", "secret")
 
     assert_equal :post, request.method

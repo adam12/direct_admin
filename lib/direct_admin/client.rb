@@ -1,5 +1,5 @@
-require "http"
 require_relative "commands"
+require_relative "request"
 
 module DirectAdmin
   class Client
@@ -15,6 +15,10 @@ module DirectAdmin
       @url = url
       @username = username
       @password = password
+    end
+
+    def _request(method, endpoint, params)
+      Request.new(self, method, endpoint, params)
     end
   end
 end
