@@ -47,5 +47,21 @@ module DirectAdmin
 
       request(:post, "/CMD_API_LOGIN_KEYS", params)
     end
+
+    # Verify the username and password of a user
+    #
+    #   client.verify_password("admin", "secret")
+    def verify_password(username, password)
+      params = {
+        "user" => username,
+        "passwd" => password
+      }
+
+      response = request(:post, "/CMD_API_VERIFY_PASSWORD", params)
+
+      if response.has_key?("valid")
+        Integer(response["valid"]) == 1
+      end
+    end
   end
 end

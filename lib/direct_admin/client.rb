@@ -31,8 +31,8 @@ module DirectAdmin
       @password = password
     end
 
-    def _request(method, endpoint, params) # :nodoc:
-      Request.new(self, method, endpoint, params)
+    def request(method, endpoint, params) # :nodoc:
+      Request.new(self, method, endpoint, params).call
     end
   end
 end
