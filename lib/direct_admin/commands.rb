@@ -64,7 +64,8 @@ module DirectAdmin
       end
     end
 
-    # Authenticate email account
+    # Authenticate email account. Must be logged in as domain owner for command
+    # to be successful.
     #
     #   client.email_auth("user@domain.com", "secret")
     def email_auth(email, password)
@@ -81,6 +82,8 @@ module DirectAdmin
     end
 
     # Owner of domain
+    #
+    #   client.domain_owner("domain.com")
     def domain_owner(domain)
       params = {
         "domain" => domain
