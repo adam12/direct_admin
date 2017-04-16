@@ -19,7 +19,19 @@ Or install it yourself as:
 
 ## Usage
 
-FIXME
+First you will need to create an instance of the client:
+
+```ruby
+require "direct_admin"
+
+client = DirectAdmin::Client.new(url: "https://localhost:2222", username: "admin", password: "secret")
+```
+
+And then you can call any of the Command methods on the client:
+
+```ruby
+client.create_login_key("CLI Tool", "abcd1234")
+```
 
 ## Limitations
 
