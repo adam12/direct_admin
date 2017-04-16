@@ -5,9 +5,10 @@ require "http"
 
 module DirectAdmin
   class Request
-    attr_reader :method, :endpont, :params, :url
+    attr_reader :client, :method, :endpont, :params, :url
 
     def initialize(client, method, endpoint, params)
+      @client   = client
       @method   = method
       @endpoint = endpoint
       @params   = params
