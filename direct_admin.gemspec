@@ -10,6 +10,10 @@ Gem::Specification.new do |spec|
   spec.email          = "adam@mediadrive.ca"
 
   spec.summary        = %q(Unofficial API for DirectAdmin)
+  spec.description    = <<~EOM
+  An unofficial (and very incomplete) API client for the DirectAdmin webhosting
+  control panel.
+  EOM
 
   spec.homepage       = "https://github.com/adam12/direct_admin"
   spec.license        = "MIT"
