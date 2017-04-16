@@ -40,4 +40,10 @@ class TestCommands < Minitest::Test
     assert_equal "user@domain.com", @client.params["email"]
     assert_equal "secret", @client.params["passwd"]
   end
+
+  def test_domain_owner
+    @client.response = { "domain.com" => {} }
+
+    assert @client.domain_owner("domain.com")
+  end
 end

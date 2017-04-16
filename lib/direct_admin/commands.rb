@@ -79,5 +79,18 @@ module DirectAdmin
         Integer(response["error"]) == 0
       end
     end
+
+    # Owner of domain
+    def domain_owner(domain)
+      params = {
+        "domain" => domain
+      }
+
+      response = request(:post, "/CMD_API_DOMAIN_OWNERS", params)
+
+      if response.has_key?(domain)
+        response[domain]
+      end
+    end
   end
 end
