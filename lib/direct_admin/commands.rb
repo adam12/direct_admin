@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+require "oga"
+
 module DirectAdmin
   module Commands
     # Create a login key
@@ -120,6 +123,32 @@ module DirectAdmin
         integer_fields.each do |key|
           response[key] = Integer(response[key])
         end
+      }
+    end
+
+    # Get Account vacation message
+    def get_account_vacation_message(email_address:, password:)
+      username, domain = email_address.split("@", 2)
+
+      params = {
+        "domain" => domain,
+        "user" => username,
+        "password" => password,
+        "api" => 1
+      }
+
+      request(:post, "/CMD_EMAIL_ACCOUNT_VACATION", params).tap { |response|
+        response["reply_content_type"] = Oga.parse_html(response.delete("reply_content_types")).at_css("[selected]").then {|node|
+          [node.get("value"), node.text]
+        }
+
+        response["reply_encoding"] = Oga.parse_html(response.delete("reply_encodings")).at_css("[selected]").then { |node|
+          [node.get("value"), node.text]
+        }
+
+        response["reply_once"] = Oga.parse_html(response.delete("reply_once_select")).at_css("[selected]").then { |node|
+          [node.get("value"), node.text]
+        }
       }
     end
   end
