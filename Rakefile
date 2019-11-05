@@ -1,6 +1,5 @@
 require "rake/testtask"
 require "rdoc/task"
-require "rubygems/tasks"
 
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.md"
@@ -13,6 +12,10 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-Gem::Tasks.new
+begin
+  require "rubygems/tasks"
+  Gem::Tasks.new
+rescue LoadError
+end
 
 task default: :test
