@@ -95,5 +95,32 @@ module DirectAdmin
         response[domain]
       end
     end
+
+    # Email Account information
+    #
+    #   client.email_account_quota(email_address: "user@example.com", password: "secret")
+    def email_account_quota(email_address:, password:)
+      username, domain = email_address.split("@", 2)
+
+      params = {
+        "domain" => domain,
+        "user" => username,
+        "password" => password,
+        "api" => 1
+      }
+
+      request(:post, "/CMD_EMAIL_ACCOUNT_QUOTA", params).tap { |response|
+        response.delete("error")
+
+        integer_fields = %w(
+          imap imap_bytes inbox inbox_bytes spam spam_bytes
+          total total_bytes webmail webmail_bytes
+        )
+
+        integer_fields.each do |key|
+          response[key] = Integer(response[key])
+        end
+      }
+    end
   end
 end

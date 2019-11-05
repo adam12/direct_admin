@@ -46,4 +46,23 @@ class TestCommands < Minitest::Test
 
     assert @client.domain_owner("domain.com")
   end
+
+  def test_email_account_quota
+    @client.response = {
+      "error" => "0",
+      "imap" => "1789607297",
+      "imap_bytes" => "1727128449",
+      "inbox" => "866553862",
+      "inbox_bytes" => "849345066",
+      "last_password_change" => "0",
+      "spam" => "27492571",
+      "spam_bytes" => "27492571",
+      "total" => "2656161159",
+      "total_bytes" => "2576473515",
+      "webmail" => "0",
+      "webmail_bytes" => "0"
+    }
+
+    refute_nil @client.email_account_quota(email_address: "user@example.com", password: "secret")
+  end
 end
