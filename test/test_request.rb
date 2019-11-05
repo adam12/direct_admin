@@ -14,6 +14,6 @@ class TestRequest < Minitest::Test
   end
 
   def test_call
-    flunk
+    skip
   end
 end
