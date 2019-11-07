@@ -30,6 +30,15 @@ module DirectAdmin
         raise DirectAdmin::Error, parsed_body["reason"]
       end
 
+      if parsed_body.delete("error") == "1"
+        case parsed_body["text"]
+        when "Invalid password"
+          raise DirectAdmin::Errors::InvalidPassword
+        else
+          raise DirectAdmin::Error, parsed_body["text"]
+        end
+      end
+
       parsed_body
     end
 
