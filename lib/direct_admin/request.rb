@@ -13,7 +13,7 @@ module DirectAdmin
       @method   = method
       @endpoint = endpoint
       @params   = params
-      @url      = URI.join(client.server_url, endpoint).to_s if client
+      @url      = URI.join(client.server_url, endpoint).to_s
     end
 
     def call
@@ -33,8 +33,10 @@ module DirectAdmin
     end
 
     def _make_request
-      HTTP.basic_auth(user: client.server_username, pass: client.server_password)
-          .public_send(method, url, form: params)
+      HTTP
+        .use(logging: {logger: client.logger})
+        .basic_auth(user: client.server_username, pass: client.server_password)
+        .public_send(method, url, form: params)
     end
   end
 end

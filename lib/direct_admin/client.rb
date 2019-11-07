@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+require "logger"
 require_relative "commands"
 require_relative "request"
 
@@ -18,6 +20,9 @@ module DirectAdmin
     attr_accessor :password
     alias server_password password
 
+    # Logger
+    attr_accessor :logger
+
     # Create a new instance of the Client
     #
     # == Required Arguments
@@ -25,14 +30,22 @@ module DirectAdmin
     # :url :: The url of the DirectAdmin server.
     # :username :: A username to login as.
     # :password :: The password which correspondes to the username.
-    def initialize(url:, username:, password:)
+    # :logger :: A logger object
+    def initialize(url:, username:, password:, logger: default_logger)
       @url = url
       @username = username
       @password = password
+      @logger = logger
     end
 
     def request(method, endpoint, params) # :nodoc:
       Request.new(self, method, endpoint, params).call
+    end
+
+    private
+
+    def default_logger
+      Logger.new("/dev/null")
     end
   end
 end
