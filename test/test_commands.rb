@@ -66,7 +66,7 @@ class TestCommands < Minitest::Test
     refute_nil @client.email_account_quota(email_address: "user@example.com", password: "secret")
   end
 
-  def test_account_vacation_message
+  def test_get_account_vacation_message
     raw_response = <<~EOM.gsub(/\n/, "")
     error=1&text=No vacation message set&custom%5Freply%5Fheaders=%31&reply%5Fcharset=&reply%5Fcontent%5Ftypes=%3Cselect%20class%3Dselectclass%20id%3Dreply%5Fcontent%5Ftype%20name%3Dreply%5Fconten
     t%5Ftype%3E%0A%3Coption%20value%3D%22text%2Fhtml%22%3Etext%2Fhtml%3C%2Foption%20%3E%0A%3Coption%20selected%20value%3D%22text%2Fplain%22%3Etext%2Fplain%3C%2Foption%20%3E%0A%3C%2Fselect%20%3E&re
