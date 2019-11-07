@@ -6,13 +6,14 @@ require_relative "response_body"
 
 module DirectAdmin
   class Request
-    attr_reader :client, :method, :endpont, :params, :url
+    attr_reader :client, :method, :endpont, :params, :url, :authenticate
 
-    def initialize(client, method, endpoint, params)
+    def initialize(client, method, endpoint, params, authenticate: true)
       @client   = client
       @method   = method
       @endpoint = endpoint
       @params   = params
+      @authenticate = authenticate
       @url      = URI.join(client.server_url, endpoint).to_s
     end
 
@@ -35,7 +36,10 @@ module DirectAdmin
     def _make_request
       HTTP
         .use(logging: {logger: client.logger})
-        .basic_auth(user: client.server_username, pass: client.server_password)
+        .then { |http|
+          next http if !authenticate
+          http.basic_auth(user: client.server_username, pass: client.server_password)
+        }
         .public_send(method, url, form: params)
     end
   end

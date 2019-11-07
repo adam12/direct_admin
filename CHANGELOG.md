@@ -1,4 +1,5 @@
 # master
+- Disable authentication on some commands
 
 # 0.2.0 (2017-04-16)
 - Verify Password command

@@ -20,7 +20,7 @@ module StubClient
 
   def_delegators :@request, :method, :url, :params
 
-  def request(method, url, params)
+  def request(method, url, params, **rest)
     @request = Request.new(method, url, params)
 
     @response

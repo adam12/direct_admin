@@ -112,7 +112,7 @@ module DirectAdmin
         "api" => 1
       }
 
-      request(:post, "/CMD_EMAIL_ACCOUNT_QUOTA", params).tap { |response|
+      request(:post, "/CMD_EMAIL_ACCOUNT_QUOTA", params, authenticate: false).tap { |response|
         response.delete("error")
 
         integer_fields = %w(

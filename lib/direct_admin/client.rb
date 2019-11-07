@@ -38,8 +38,8 @@ module DirectAdmin
       @logger = logger
     end
 
-    def request(method, endpoint, params) # :nodoc:
-      Request.new(self, method, endpoint, params).call
+    def request(method, endpoint, params, authenticate: true) # :nodoc:
+      Request.new(self, method, endpoint, params, authenticate: authenticate).call
     end
 
     private
