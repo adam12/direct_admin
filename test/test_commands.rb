@@ -1,4 +1,4 @@
-require "minitest/autorun"
+require "test_helper"
 require "direct_admin/client"
 require "direct_admin/commands"
 require_relative "stub_client"

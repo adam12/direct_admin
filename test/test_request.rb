@@ -1,4 +1,4 @@
-require "minitest/autorun"
+require "test_helper"
 require "direct_admin/request"
 
 class TestRequest < Minitest::Test
