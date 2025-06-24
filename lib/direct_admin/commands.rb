@@ -109,7 +109,8 @@ module DirectAdmin
         "domain" => domain,
         "user" => username,
         "password" => password,
-        "api" => 1
+        "api" => 1,
+        "quota" => "yes"
       }
 
       request(:post, "/CMD_EMAIL_ACCOUNT_QUOTA", params, authenticate: false).tap { |response|
