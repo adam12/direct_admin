@@ -8,12 +8,13 @@ module DirectAdmin
   class Request
     attr_reader :client, :method, :endpont, :params, :url, :authenticate
 
-    def initialize(client, method, endpoint, params, authenticate: true)
+    def initialize(client, method, endpoint, params, authenticate: true, timeout: nil)
       @client   = client
       @method   = method
       @endpoint = endpoint
       @params   = params
       @authenticate = authenticate
+      @timeout = timeout
       @url      = URI.join(client.server_url, endpoint).to_s
     end
 
@@ -48,6 +49,10 @@ module DirectAdmin
         .then { |http|
           next http if !authenticate
           http.basic_auth(user: client.server_username, pass: client.server_password)
+        }
+        .then { |http|
+          next http if @timeout.nil?
+          http.timeout(@timeout)
         }
         .public_send(method, url, form: params)
     end
